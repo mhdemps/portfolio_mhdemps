@@ -1,17 +1,27 @@
-import { assetRootUrl } from "../utils/paths";
+import type { CSSProperties } from "react";
+import portrait from "../../assets/IMG_0267.JPG";
 import instaIcon from "../../assets/insta.svg";
 import emailIcon from "../../assets/email.svg";
 import linkedinIcon from "../../assets/linkedin.svg";
 
-const bg = assetRootUrl("IMG_2518.JPG");
-const portrait = assetRootUrl("IMG_0267.JPG");
+const bgMods = import.meta.glob<string>("../../assets/IMG_2518.JPG", {
+  eager: true,
+  import: "default",
+});
+const bgUrl = Object.values(bgMods)[0];
 
 export default function About() {
   return (
     <div className="figma-page">
       <div
         className="figma-bg"
-        style={{ ["--figma-bg" as never]: `url(${bg})` }}
+        style={
+          bgUrl
+            ? ({
+                ["--figma-bg" as string]: `url(${bgUrl})`,
+              } as CSSProperties)
+            : undefined
+        }
       />
 
       <div className="figma-stage figma-about">

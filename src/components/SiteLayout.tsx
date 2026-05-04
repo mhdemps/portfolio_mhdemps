@@ -14,13 +14,27 @@ function navLinkClass(pos: "left" | "center" | "right") {
 
 export default function SiteLayout() {
   return (
-    <div className="site">
+    <div className="site site--footer-static">
       <header className="site__header">
         <nav className="site-nav" aria-label="Primary">
           <NavLink to="/about" className={navLinkClass("left")}>
             about
           </NavLink>
-          <NavLink to="/portfolio" className={navLinkClass("center")}>
+          <NavLink
+            to="/portfolio"
+            end
+            className={({ isActive }) =>
+              [
+                "site-nav__link",
+                "site-nav__link--center",
+                isActive || pathname.startsWith("/portfolio/")
+                  ? "site-nav__link--active"
+                  : "",
+              ]
+                .filter(Boolean)
+                .join(" ")
+            }
+          >
             portfolio
           </NavLink>
           <NavLink to="/photography" className={navLinkClass("right")}>
