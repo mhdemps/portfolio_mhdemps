@@ -27,7 +27,8 @@ function guessProjectSlugFromFilename(filename: string): string | undefined {
   }
 
   // Heuristics for your current slide filenames
-  if (n.includes("blueberry")) return "zine";
+  if (n.includes("blueberry") || n.includes("cover blue") || n.includes("custom"))
+    return "zine";
   if (n.includes("final")) return "hot-sauce";
   if (n.includes("open book") || n.includes("bluer pages")) return "book-redesign";
   if (n.includes("backs") || n.includes("untitled")) return "museum-brochure";

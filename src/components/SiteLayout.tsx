@@ -27,7 +27,7 @@ export default function SiteLayout() {
               [
                 "site-nav__link",
                 "site-nav__link--center",
-                isActive || pathname.startsWith("/portfolio/")
+                isActive
                   ? "site-nav__link--active"
                   : "",
               ]
