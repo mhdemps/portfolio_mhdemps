@@ -1,64 +1,44 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
-import footerMark from "../../assets/mhdemps footer.svg";
+import wordmark from "../../assets/mhdesigns logo.svg";
 
-function navLinkClass(pos: "left" | "center" | "right") {
+function navLinkClass() {
   return ({ isActive }: { isActive: boolean }) =>
-    [
-      "site-nav__link",
-      `site-nav__link--${pos}`,
-      isActive ? "site-nav__link--active" : "",
-    ]
+    ["site-nav__link", isActive ? "site-nav__link--active" : ""]
       .filter(Boolean)
       .join(" ");
 }
 
 export default function SiteLayout() {
   return (
-    <div className="site site--footer-static">
+    <div className="site">
       <header className="site__header">
-        <nav className="site-nav" aria-label="Primary">
-          <NavLink to="/about" className={navLinkClass("left")}>
-            about
-          </NavLink>
-          <NavLink
-            to="/portfolio"
-            end
-            className={({ isActive }) =>
-              [
-                "site-nav__link",
-                "site-nav__link--center",
-                isActive
-                  ? "site-nav__link--active"
-                  : "",
-              ]
-                .filter(Boolean)
-                .join(" ")
-            }
-          >
-            portfolio
-          </NavLink>
-          <NavLink to="/photography" className={navLinkClass("right")}>
-            photography
-          </NavLink>
-        </nav>
+        <div className="site-header-bar">
+          <Link to="/" className="site-header-bar__logo" aria-label="mhdesigns home">
+            <img
+              src={wordmark}
+              alt="mhdesigns"
+              width={1082}
+              height={288}
+              decoding="async"
+            />
+          </Link>
+          <nav className="site-nav site-nav--end" aria-label="Primary">
+            <NavLink to="/about" className={navLinkClass()}>
+              about
+            </NavLink>
+            <NavLink to="/portfolio" end className={navLinkClass()}>
+              portfolio
+            </NavLink>
+            <NavLink to="/photography" className={navLinkClass()}>
+              photography
+            </NavLink>
+          </nav>
+        </div>
       </header>
 
       <main className="site__main">
         <Outlet />
       </main>
-
-      <footer className="site-footer">
-        <Link to="/" className="site-footer__link" aria-label="Home">
-          <img
-            className="site-footer__mark"
-            src={footerMark}
-            alt="mhdesigns"
-            width={1029}
-            height={239}
-            decoding="async"
-          />
-        </Link>
-      </footer>
     </div>
   );
 }

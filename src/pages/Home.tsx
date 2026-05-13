@@ -60,7 +60,7 @@ export default function Home() {
     // Same pacing as the old two-row home: each row used max(120, count * 12); blend both.
     const portfolioSpeedS = Math.max(120, portfolioSlides.length * 12);
     const photoSpeedS = Math.max(120, photoSlides.length * 12);
-    const speedS = ((portfolioSpeedS + photoSpeedS) / 2) * 1.65;
+    const speedS = ((portfolioSpeedS + photoSpeedS) / 2) * 2.45;
     return { mixedSlides: mixed, speedS };
   }, []);
 
