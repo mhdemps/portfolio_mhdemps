@@ -1,5 +1,7 @@
-import type { CSSProperties } from "react";
+import { useEffect, useState, type CSSProperties } from "react";
 import portrait from "../../assets/IMG_0267.JPG";
+import designResume from "../../assets/Design Resume.jpg";
+import resumeSpringPdf from "../../assets/Resume Spring 26'.pdf";
 import instaIcon from "../../assets/insta.svg";
 import emailIcon from "../../assets/email.svg";
 import linkedinIcon from "../../assets/linkedin.svg";
@@ -11,6 +13,22 @@ const bgMods = import.meta.glob<string>("../../assets/IMG_2518.JPG", {
 const bgUrl = Object.values(bgMods)[0];
 
 export default function About() {
+  const [resumeOpen, setResumeOpen] = useState(false);
+
+  useEffect(() => {
+    if (!resumeOpen) return;
+    const prevOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setResumeOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      document.body.style.overflow = prevOverflow;
+    };
+  }, [resumeOpen]);
+
   return (
     <div className="figma-page">
       <div
@@ -55,7 +73,16 @@ export default function About() {
               </p>
             </div>
 
-            <div className="about__icons" aria-label="Social links">
+            <div className="about__footer-row">
+              <button
+                type="button"
+                className="about__resume-btn"
+                onClick={() => setResumeOpen(true)}
+              >
+                View resume
+              </button>
+
+              <div className="about__icons" aria-label="Social links">
               <a
                 className="about__icon-link"
                 href="https://www.instagram.com/m.h.d_designs/"
@@ -99,10 +126,55 @@ export default function About() {
                   height={51}
                 />
               </a>
+              </div>
             </div>
           </section>
         </div>
       </div>
+
+      {resumeOpen ? (
+        <div
+          className="resume-modal"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Design resume"
+        >
+          <button
+            type="button"
+            className="resume-modal__backdrop"
+            onClick={() => setResumeOpen(false)}
+            aria-label="Close resume"
+          />
+          <div className="resume-modal__panel">
+            <div className="resume-modal__toolbar">
+              <a
+                className="resume-modal__download"
+                href={resumeSpringPdf}
+                download="Resume-Spring-26.pdf"
+              >
+                Download (Spring &apos;26)
+              </a>
+              <button
+                type="button"
+                className="resume-modal__close"
+                onClick={() => setResumeOpen(false)}
+                aria-label="Close"
+              >
+                ×
+              </button>
+            </div>
+            <div className="resume-modal__scroll">
+              <img
+                className="resume-modal__img"
+                src={designResume}
+                alt="Madison Dempsey design resume"
+                loading="eager"
+                decoding="async"
+              />
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
