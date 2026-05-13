@@ -71,9 +71,9 @@ body {
 
 .site-header-bar__logo img {
   display: block;
-  height: clamp(2.85rem, 11vw, 6.25rem);
+  height: clamp(4rem, 15vw, 9rem);
   width: auto;
-  max-width: min(92vw, 38rem);
+  max-width: min(96vw, 54rem);
 }
 
 .site-nav {
@@ -426,7 +426,7 @@ body {
   outline-offset: 3px;
 }
 
-/* About — design resume modal */
+/* About — resume modal (Spring PDF) */
 .resume-modal {
   position: fixed;
   inset: 0;
@@ -519,20 +519,23 @@ body {
 }
 
 .resume-modal__scroll {
-  overflow: auto;
+  overflow: hidden;
   -webkit-overflow-scrolling: touch;
-  max-width: min(920px, calc(100vw - 1.5rem));
-  max-height: min(88dvh, calc(100dvh - 4.75rem), calc(100svh - 4.75rem));
+  width: min(920px, calc(100vw - 1.5rem));
+  height: min(82dvh, calc(100dvh - 5rem), calc(100svh - 5rem));
+  max-height: min(82dvh, calc(100dvh - 5rem), calc(100svh - 5rem));
   margin-top: 0.25rem;
 }
 
-.resume-modal__img {
+.resume-modal__frame {
   display: block;
   width: 100%;
-  max-width: min(920px, calc(100vw - 1.5rem));
-  height: auto;
+  height: 100%;
+  min-height: min(480px, 70dvh);
+  border: 0;
+  border-radius: 4px;
+  background: #fff;
   box-shadow: 0 14px 48px rgba(0, 0, 0, 0.38);
-  border-radius: 3px;
 }
 
 .about__footer-row .about__icons {
@@ -595,7 +598,9 @@ body {
   page-break-inside: avoid;
   border-radius: 4px;
   overflow: hidden;
-  background: rgba(19, 111, 99, 0.05);
+  /* Remove the tinted "card" background so light brochure pages
+     don't look washed out. */
+  background: transparent;
 }
 
 .photography__item img {
@@ -759,7 +764,7 @@ body {
   padding: 0;
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
-  gap: clamp(1rem, 3vw, 1.65rem);
+  gap: clamp(0.65rem, 1.6vw, 1.15rem);
 }
 
 .portfolio-card {
@@ -768,10 +773,10 @@ body {
   height: 100%;
   text-decoration: none;
   color: inherit;
-  border-radius: 6px;
-  overflow: hidden;
-  background: rgba(19, 111, 99, 0.06);
-  transition: opacity 0.15s ease, transform 0.15s ease;
+  border-radius: 0;
+  overflow: visible;
+  background: transparent;
+  transition: none;
 }
 
 .portfolio-card--soon {
@@ -785,8 +790,8 @@ body {
 }
 
 .portfolio-card:hover {
-  opacity: 0.9;
-  transform: translateY(-2px);
+  opacity: 1;
+  transform: none;
 }
 
 .portfolio-card:focus-visible {
@@ -797,9 +802,10 @@ body {
 .portfolio-card__thumb {
   aspect-ratio: 4 / 3;
   overflow: hidden;
-  background: rgba(19, 111, 99, 0.08);
+  background: transparent;
   display: grid;
   place-items: center;
+  position: relative;
 }
 
 .portfolio-card__thumb img {
@@ -808,6 +814,31 @@ body {
   object-fit: cover;
   object-position: center;
   display: block;
+}
+
+.portfolio-card__overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  padding: clamp(0.75rem, 2.4vw, 1.25rem);
+  background: rgba(19, 111, 99, 0.88);
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.portfolio-card__overlay-title {
+  color: #fffbe6;
+  text-transform: lowercase;
+  letter-spacing: 0.06em;
+  font-weight: 500;
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  text-align: center;
+}
+
+.portfolio-card:hover .portfolio-card__overlay,
+.portfolio-card:focus-visible .portfolio-card__overlay {
+  opacity: 1;
 }
 
 .portfolio-card__empty {
@@ -820,12 +851,11 @@ body {
 }
 
 .portfolio-card__title {
+  /* Keep semantic heading for accessibility, but visually match Sarah Smith style. */
   margin: 0;
-  padding: clamp(0.75rem, 2vw, 1rem);
-  font-size: clamp(0.98rem, 1.15vw, 1.08rem);
-  font-weight: 500;
-  letter-spacing: 0.03em;
-  text-transform: lowercase;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
 }
 
 /* Portfolio project detail */
@@ -944,6 +974,133 @@ body {
   width: auto;
   max-width: 100%;
   display: block;
+}
+
+/* Tastebuddy — static hero row (3 assets), then rotating screenshots below */
+.tastebuddy-media {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(2rem, 5vw, 3.25rem);
+  width: 100%;
+  max-width: min(960px, 100%);
+  margin-inline: auto;
+  box-sizing: border-box;
+}
+
+.tastebuddy-hero {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 3vw, 2rem);
+  box-sizing: border-box;
+}
+
+.tastebuddy-hero--triple {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2rem);
+  align-items: center;
+  justify-items: center;
+}
+
+.tastebuddy-hero__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* Short band matches landscape GIF; open + icon scale down to same line */
+  height: clamp(7rem, 18vw, 11rem);
+  min-width: 0;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  cursor: zoom-in;
+  line-height: 0;
+  box-sizing: border-box;
+}
+
+.tastebuddy-hero__item:focus-visible {
+  outline: 2px solid #136f63;
+  outline-offset: 4px;
+  border-radius: 2px;
+}
+
+.tastebuddy-hero__item img {
+  display: block;
+  width: auto;
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Rotating phone screenshots — visually separate block below hero */
+.tastebuddy-slideshow {
+  margin-top: 0;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.tastebuddy-slideshow__figure {
+  margin: 0;
+}
+
+.tastebuddy-slideshow__stack {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  background: transparent;
+  border-radius: 0;
+  overflow: hidden;
+  cursor: zoom-in;
+  aspect-ratio: 16 / 9;
+}
+
+.tastebuddy-slideshow__stack:focus-visible {
+  outline: 2px solid #136f63;
+  outline-offset: 4px;
+}
+
+.tastebuddy-slideshow__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+  pointer-events: none;
+}
+
+.tastebuddy-slideshow__img--active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.tastebuddy-slideshow__dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.45rem;
+  margin-top: 0.85rem;
+}
+
+.tastebuddy-slideshow__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(19, 111, 99, 0.22);
+}
+
+.tastebuddy-slideshow__dot--active {
+  background: #136f63;
+  transform: scale(1.15);
 }
 
 .portfolio-detail__empty {

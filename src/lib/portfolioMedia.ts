@@ -51,7 +51,7 @@ const hotSauce = import.meta.glob("../../assets/HotSauce/**/*.{jpg,JPG,jpeg,JPEG
 }) as Record<string, Mod>;
 
 const tastebuddyImages = import.meta.glob(
-  "../../assets/Tastebuddy/**/*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF,webp,WEBP}",
+  "../../assets/Tastebuddy/**/*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF,webp,WEBP,svg,SVG}",
   { eager: true }
 ) as Record<string, Mod>;
 
@@ -63,6 +63,10 @@ const zine = import.meta.glob("../../assets/Zine/**/*.{jpg,JPG,jpeg,JPEG,png,PNG
   eager: true,
 }) as Record<string, Mod>;
 
+const trailType = import.meta.glob("../../assets/TrailType/**/*.{jpg,JPG,jpeg,JPEG,png,PNG,gif,GIF,webp,WEBP}", {
+  eager: true,
+}) as Record<string, Mod>;
+
 const BY_FOLDER: Record<string, { images: string[]; videos: string[] }> = {
   BookRedesign: { images: sortedUrls(bookRedesign), videos: [] },
   Brochure: { images: sortedUrls(brochure), videos: [] },
@@ -71,6 +75,7 @@ const BY_FOLDER: Record<string, { images: string[]; videos: string[] }> = {
     images: sortedUrls(tastebuddyImages),
     videos: sortedUrls(tastebuddyVideos),
   },
+  TrailType: { images: sortedUrls(trailType), videos: [] },
   Zine: { images: sortedUrls(zine, zineRank), videos: [] },
 };
 

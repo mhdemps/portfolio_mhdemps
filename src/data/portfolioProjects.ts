@@ -39,6 +39,13 @@ export const PORTFOLIO_PROJECTS: PortfolioProject[] = [
     externalLabel: "Open TasteBuddy",
   },
   {
+    slug: "trail-type",
+    title: "Trail Type",
+    folder: "TrailType",
+    description:
+      "I created a trail-inspired identity for Frozen Head State Park featuring icy hand-drawn typography and shattered ice forming the shape of Tennessee. The project evolved from sketches to refined digital illustrations in Procreate and was extended into a custom water bottle sticker wrap inspired by trail gear.",
+  },
+  {
     slug: "zine",
     title: "Zine",
     folder: "Zine",

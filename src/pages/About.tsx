@@ -1,6 +1,5 @@
 import { useEffect, useState, type CSSProperties } from "react";
 import portrait from "../../assets/IMG_0267.JPG";
-import designResume from "../../assets/Design Resume.jpg";
 import resumeSpringPdf from "../../assets/Resume Spring 26'.pdf";
 import instaIcon from "../../assets/insta.svg";
 import emailIcon from "../../assets/email.svg";
@@ -137,7 +136,7 @@ export default function About() {
           className="resume-modal"
           role="dialog"
           aria-modal="true"
-          aria-label="Design resume"
+          aria-label="Resume Spring '26"
         >
           <button
             type="button"
@@ -164,12 +163,10 @@ export default function About() {
               </button>
             </div>
             <div className="resume-modal__scroll">
-              <img
-                className="resume-modal__img"
-                src={designResume}
-                alt="Madison Dempsey design resume"
-                loading="eager"
-                decoding="async"
+              <iframe
+                className="resume-modal__frame"
+                src={resumeSpringPdf}
+                title="Resume Spring 2026 (PDF)"
               />
             </div>
           </div>
